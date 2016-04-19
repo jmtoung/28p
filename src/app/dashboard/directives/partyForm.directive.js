@@ -2,12 +2,12 @@
     'use strict';
     
     angular
-        .module('app.waitList')
+        .module('app.dashboard')
         .directive('gzPartyForm', gzPartyForm);
     
     function gzPartyForm() {
         return {
-            templateUrl: 'app/waitList/directives/partyForm.html',
+            templateUrl: 'app/dashboard/directives/partyForm.html',
             restrict: 'E',
             controller: PartyFormController,
             controllerAs: 'vm',

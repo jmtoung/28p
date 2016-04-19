@@ -2,12 +2,12 @@
     'use strict';
     
     angular
-        .module('app.waitList')
+        .module('app.dashboard')
         .directive('gzPartyTable', gzPartyTable);
     
     function gzPartyTable() {
         return {
-            templateUrl: 'app/waitList/directives/partyTable.html',
+            templateUrl: 'app/dashboard/directives/partyTable.html',
             restrict: 'E',
             controller: PartyTableController,
             controllerAs: 'vm',
