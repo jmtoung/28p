@@ -3,6 +3,6 @@
     
     angular
         .module('app.core', [])
-        .constant('FIREBASE_URL', 'https://waitandeat-jmt.firebaseio.com/');
+        .constant('FIREBASE_URL', 'https://theprofitlogger.firebaseio.com/');
     
 })();
