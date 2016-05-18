@@ -25,25 +25,6 @@ from google.appengine.ext import ndb
 import jinja2
 import webapp2
 
-# disable firebase multiprocessing
-class dummy:
-    def close(self):
-        pass
-    def join(self):
-        pass
-    def terminate(self):
-        pass
-
-class DummyProccessing:
-    def __init__(self):
-        pass
-    @staticmethod
-    def Pool(processes):
-        return dummy()
-
-sys.modules['firebase.async.process_pool'] = dummy()
-sys.modules['multiprocessing'] = DummyProccessing
-
 from firebase import firebase
 
 JINJA_ENVIRONMENT = jinja2.Environment(
