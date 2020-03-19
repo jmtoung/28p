@@ -26,6 +26,14 @@ import jinja2
 import webapp2
 
 from firebase import firebase
+firebase_url = 'https://profitlogger-1314.firebaseio.com'
+fb = firebase.FirebaseApplication(firebase_url, None)
+
+import json
+from datetime import datetime, timedelta
+
+from GetOrders import GetOrders
+import socket
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -121,9 +129,64 @@ class Guestbook(webapp2.RequestHandler):
 # [END guestbook]
 
 
+# [START orders page]
+class OrdersPage(webapp2.RequestHandler):
+
+    def get(self):
+        #orders = fb.get('/', 'fees')
+        
+        url = 'http://www.google.com/humans.txt'
+        
+        response = fb.get('/', 'fees')
+        print 'lalalala'
+        for fee in response:
+            print fee
+        
+        return
+        if False:
+            Now = datetime.utcnow()
+            NumberOfDays = 30
+
+            try:
+                if NumberOfDays > 0:
+                    responses = GetOrders(NumberOfDays=NumberOfDays,
+                                          IncludeFinalValueFee=True
+                                         )
+
+                    for i, response in enumerate(responses):
+                        response = response.dict()
+                        print 'PageNumber: %s' % (i + 1)
+                        print json.dumps(response, sort_keys=True, indent=5)
+
+                        if 'OrderArray' in response and 'Order' in response['OrderArray']:
+                            for order in response['OrderArray']['Order']:
+                                pass
+            except Exception as e:
+                raise
+            else:
+                print('successfully retrieved')
+
+                # if GetAccount does not raise an exception, update the EndDate
+                #firebase.put('/api_calls/ebay', 'update_orders', Now.isoformat() + 'Z')
+                print('successfully updated')
+
+            orders=[]
+            for order in orders:
+                print order
+
+            template_values = {
+                'orders': orders
+            }
+
+        #template = JINJA_ENVIRONMENT.get_template('index.html')
+        #self.response.write(template.render(template_values))
+# [END main_page]
+
+
 # [START app]
 app = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/sign', Guestbook),
+    ('/orders', OrdersPage)
 ], debug=True)
 # [END app]
